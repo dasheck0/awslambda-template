@@ -1,0 +1,24 @@
+{
+  "name": "dasheck0-awslambda-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "pack": "zip -r build-$npm_package_version.zip dist package* node_modules",
+    "prepack": "npm run compile && rm -rf build*.zip",
+    "predeploy": "npm run pack",
+    "deploy": "aws s3 cp build-$npm_package_version.zip s3://nanogiants/lambda/nanogiants-miro-gpt4/build-$npm_package_version.zip && aws lambda update-function-code --function-name nanogiants-miro-gpt4 --s3-bucket nanogiants --s3-key lambda/nanogiants-miro-gpt4/build-$npm_package_version.zip"
+  },
+  "author": "Stefan Neidig <s.neidig@nanogiants.de> (https://appcom-interactive.de/)",
+  "license": "MIT",
+  "dependencies": {
+    "aws-lambda": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.123",
+    "@types/node": "^20.8.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
